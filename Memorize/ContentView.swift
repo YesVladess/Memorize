@@ -8,48 +8,81 @@
 import SwiftUI
 
 struct ContentView: View {
-    let emojis = ["🚗", "🚕", "🚙", "🚎", "🏎", "🚑", "🚌", "🚓",  "🚒", "🚐", "🛻", "🚚", "🚛" , "🚜"]
-    @State var emojiCount: Int = 4
+
+    @State var emojis = ["🚗", "🚕", "🚙", "🚎"]
+    var emojisCount: Int {
+        get {
+            Int.random(in: 4 ... emojis.count)
+        }
+    }
+
+    let emojisVehihles = ["🚗", "🚕", "🚙", "🚎", "🏎", "🚑", "🚌", "🚓",  "🚒", "🚐", "🛻", "🚚", "🚛" , "🚜"]
+    let emojisAnimals = ["🐶", "🐱", "🐭", "🐰", "🦊", "🐼", "🐻", "🐻‍❄️",  "🐨", "🐸", "🦉", "🦋"]
+    let emojisFaces = ["😋", "🥲", "😟", "😕", "🤩", "🙁", "😢", "🥺",  "😤", "🤯"]
+
+
     var body: some View {
         VStack {
+            Text("Memorize!")
+                .padding(.bottom)
+                .font(.largeTitle)
+            Spacer()
             ScrollView {
                 LazyVGrid(columns:
                             [GridItem(.adaptive(minimum: 65))]
                 )
                 {
-                    ForEach(emojis[0..<emojiCount], id: \.self) { emoji in
+                    ForEach(emojis[0..<emojisCount],
+                            id: \.self) { emoji in
                         CardView(content: emoji).aspectRatio(2/3, contentMode: .fit)
                     }
                 }
             }
-            .foregroundColor(.red)
             Spacer()
-            HStack {
-                removeButton.padding(.horizontal)
-                Spacer()
-                addButton.padding(.horizontal)
-            }.font(.largeTitle)
+            HStack( alignment: .firstTextBaseline, spacing: 25) {
+                vehiclesThemeButton.padding(.horizontal)
+                facesThemeButton.padding(.horizontal)
+                animalsThemeButton.padding(.horizontal)
+            }
         }
         .padding(.horizontal)
-    }
-
-    var removeButton: some View {
-        Button {
-            if emojiCount > 1 {
-                emojiCount -= 1
-            }
-        } label: {
-            Image(systemName: "minus.circle")
+        .onAppear {
+            emojis = emojisVehihles
         }
     }
 
-    var addButton: some View {
+    var vehiclesThemeButton: some View {
         Button {
-            if emojiCount < emojis.count {
-                emojiCount += 1
-            }
+            emojis = emojisVehihles.shuffled()
         } label: {
-            Image(systemName: "plus.circle")
+            VStack {
+                Image(systemName: "car").font(.largeTitle)
+                Text("Vehicles")
+            }
+        }
+    }
+
+    var facesThemeButton: some View {
+        Button {
+            emojis = emojisFaces.shuffled()
+        } label: {
+            VStack {
+                Image(systemName: "face.smiling")
+                    .font(.largeTitle)
+                Text("Faces")
+            }
+        }
+    }
+
+    var animalsThemeButton: some View {
+        Button {
+            emojis = emojisAnimals.shuffled()
+        } label: {
+            VStack() {
+                Image(systemName: "hare")
+                    .font(.largeTitle)
+                Text("Animals")
+            }
         }
     }
 
@@ -64,11 +97,12 @@ struct CardView: View {
         ZStack {
             let shape = RoundedRectangle(cornerRadius: 20)
             if isFaceUp {
-                shape.fill(.white)
-                shape.strokeBorder(lineWidth: 3)
-                Text(content).font(.largeTitle)
+                shape.fill(.gray)
+                Text(content)
+                    .font(.largeTitle)
             } else {
-                shape.fill()
+                shape.fill(.brown)
+                shape.strokeBorder(.blue, lineWidth: 5)
             }
         }.onTapGesture {
             isFaceUp.toggle()
@@ -76,12 +110,3 @@ struct CardView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-            .preferredColorScheme(.dark)
-        ContentView()
-            .preferredColorScheme(.light
-            )
-    }
-}
