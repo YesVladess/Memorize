@@ -85,6 +85,8 @@ struct CardView: View {
                 shape.fill(.gray)
                 Text(card.content)
                     .font(.largeTitle)
+            } else if card.isMatched {
+                shape.opacity(0)
             } else {
                 shape.fill(.brown)
                 shape.strokeBorder(.blue, lineWidth: 5)
