@@ -14,14 +14,23 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
 
     private var indexOfOneAndOnlyFaceUpCard: Int?
 
-    init(numberOfPairsOfCards: Int, createCardContent: (Int) -> CardContent) {
+    struct Card: Identifiable {
+        var isFaceUp: Bool = false
+        var isMatched: Bool = false
+        var content: CardContent
+        var id: Int
+    }
+
+    init(createCardContent: (Int) -> CardContent) {
         cards = [Card]()
-        // add numberOfPairsOfCards x 2 cards to card array
-        for pairIndex in 0..<numberOfPairsOfCards {
+        let randomNumberOfPairs = Int.random(in: 4...8)
+        // add randomNumberOfPairs x 2 cards to card array
+        for pairIndex in 0..<randomNumberOfPairs {
             let content = createCardContent(pairIndex)
-            cards.append(Card(content: content, id: pairIndex*2))
-            cards.append(Card(content: content, id: pairIndex*2 + 1))
+            cards.append(Card(content: content, id: pairIndex * 2))
+            cards.append(Card(content: content, id: pairIndex * 2 + 1))
         }
+        cards.shuffle()
     }
 
     mutating func choose(_ card: Card) {
@@ -43,16 +52,6 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
             indexOfOneAndOnlyFaceUpCard = chosenIndex
         }
         cards[chosenIndex].isFaceUp.toggle()
-    }
-
-    struct Card: Identifiable {
-
-        var isFaceUp: Bool = false
-        var isMatched: Bool = false
-        var content: CardContent
-
-        var id: Int
-        
     }
 
 }

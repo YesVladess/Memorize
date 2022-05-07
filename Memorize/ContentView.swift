@@ -39,7 +39,7 @@ struct ContentView: View {
 
     var vehiclesThemeButton: some View {
         Button {
-            //emojis = emojisVehihles.shuffled()
+            viewModel.restartGame(theme: .vehihles)
         } label: {
             VStack {
                 Image(systemName: "car").font(.largeTitle)
@@ -50,7 +50,7 @@ struct ContentView: View {
 
     var facesThemeButton: some View {
         Button {
-            //emojis = emojisFaces.shuffled()
+            viewModel.restartGame(theme: .faces)
         } label: {
             VStack {
                 Image(systemName: "face.smiling")
@@ -62,7 +62,7 @@ struct ContentView: View {
 
     var animalsThemeButton: some View {
         Button {
-            //emojis = emojisAnimals.shuffled()
+            viewModel.restartGame(theme: .animals)
         } label: {
             VStack() {
                 Image(systemName: "hare")
