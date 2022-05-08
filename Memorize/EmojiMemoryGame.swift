@@ -18,6 +18,8 @@ class EmojiMemoryGame: ObservableObject {
         var color: Color
     }
 
+    typealias Card = MemoryGame<String>.Card
+
     private let avaliableThemes = [vehihles, animals, faces]
 
     private static let vehihles = Theme(name: "Vehihles",
@@ -35,7 +37,7 @@ class EmojiMemoryGame: ObservableObject {
     @Published private var model: MemoryGame<String>
     @Published var currentTheme: Theme
     var score: Int { model.score }
-    var cards: [MemoryGame<String>.Card] { model.cards }
+    var cards: [Card] { model.cards }
 
     init() {
         let randomTheme = avaliableThemes.randomElement()!
@@ -48,7 +50,7 @@ class EmojiMemoryGame: ObservableObject {
 
     // MARK: - Intent
 
-    func choose(_ card: MemoryGame<String>.Card) {
+    func choose(_ card: Card) {
         // Don't need if we have ObservableObject?
         //objectWillChange.send()
         model.choose(card)

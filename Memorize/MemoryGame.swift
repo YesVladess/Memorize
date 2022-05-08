@@ -11,20 +11,23 @@ import Foundation
 struct MemoryGame<CardContent> where CardContent: Equatable {
 
     private(set) var cards: [Card]
-    private(set) var score: Int = 0
-    private var indexOfOneAndOnlyFaceUpCard: Int?
+    private(set) var score = 0
+    private var indexOfOneAndOnlyFaceUpCard: Int? {
+        get { cards.indices.filter({ cards[$0].isFaceUp}).oneAndOnly }
+        set { cards.indices.forEach { cards[$0].isFaceUp = ($0 == newValue) } }
+    }
 
     struct Card: Identifiable {
-        var isFaceUp: Bool = false
-        var isMatched: Bool = false
-        var previouslySeen: Bool = false
-        var content: CardContent
-        var id: Int
+        var isFaceUp = false
+        var isMatched = false
+        var previouslySeen = false
+        let content: CardContent
+        let id: Int
     }
 
     init(avaliableCardContentPieces: Int, createCardContent: (Int) -> CardContent) {
-        cards = [Card]()
-        var randomNumberOfPairs = Int.random(in: 2...15)
+        cards = []
+        var randomNumberOfPairs = Int.random(in: 8...15)
         if randomNumberOfPairs > avaliableCardContentPieces {
             randomNumberOfPairs = avaliableCardContentPieces
         }
@@ -58,14 +61,18 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
                 cards[potentialMatchIndex].previouslySeen = true
                 cards[chosenIndex].previouslySeen = true
             }
-            indexOfOneAndOnlyFaceUpCard = nil
+            cards[chosenIndex].isFaceUp = true
         } else {
-            for index in cards.indices {
-                cards[index].isFaceUp = false
-            }
             indexOfOneAndOnlyFaceUpCard = chosenIndex
         }
-        cards[chosenIndex].isFaceUp.toggle()
     }
 
+}
+
+extension Array {
+
+    var oneAndOnly: Element? {
+        self.count == 1 ? self.first : nil
+    }
+    
 }
