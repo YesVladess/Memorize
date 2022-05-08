@@ -34,9 +34,8 @@ class EmojiMemoryGame: ObservableObject {
 
     @Published private var model: MemoryGame<String>
     @Published var currentTheme: Theme
-    var cards: [MemoryGame<String>.Card] {
-        model.cards
-    }
+    var score: Int { model.score }
+    var cards: [MemoryGame<String>.Card] { model.cards }
 
     init() {
         let randomTheme = avaliableThemes.randomElement()!

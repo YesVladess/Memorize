@@ -33,6 +33,7 @@ struct ContentView: View {
             Spacer()
             HStack( alignment: .firstTextBaseline, spacing: 25) {
                 newGameButton.padding(.horizontal)
+                gameInfoView.padding(.horizontal)
             }
         }
         .padding(.horizontal)
@@ -44,9 +45,17 @@ struct ContentView: View {
         } label: {
             VStack {
                 Image(systemName: "plus.rectangle.fill").font(.largeTitle)
-                Text(viewModel.currentTheme.name)
+                Text("New game")
             }
         }
+    }
+
+    var gameInfoView: some View {
+        VStack {
+            Text("Theme: \(viewModel.currentTheme.name)")
+            Text("Points: \(viewModel.score)")
+        }
+
     }
 
 }
