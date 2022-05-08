@@ -17,6 +17,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     struct Card: Identifiable {
         var isFaceUp: Bool = false
         var isMatched: Bool = false
+        var previouslySeen: Bool = false
         var content: CardContent
         var id: Int
     }
@@ -48,7 +49,16 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
                 cards[potentialMatchIndex].isMatched = true
                 score += 2
             } else {
-                score -= 1
+                if cards[chosenIndex].previouslySeen == true {
+                    score -= 1
+                } else {
+                    cards[chosenIndex].previouslySeen = true
+                }
+                if cards[potentialMatchIndex].previouslySeen == true {
+                    score -= 1
+                } else {
+                    cards[potentialMatchIndex].previouslySeen = true
+                }
             }
             indexOfOneAndOnlyFaceUpCard = nil
         } else {
