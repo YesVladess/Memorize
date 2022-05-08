@@ -22,7 +22,7 @@ struct ContentView: View {
                 {
                     ForEach(viewModel.cards) { card in
                         CardView(card: card,
-                                 cardBackColor: viewModel.currentTheme.themeColor)
+                                 cardBackColor: viewModel.currentTheme.color)
                         .aspectRatio(2/3, contentMode: .fit)
                         .onTapGesture {
                             viewModel.choose(card)
@@ -75,7 +75,10 @@ struct CardView: View {
             } else if card.isMatched {
                 shape.opacity(0)
             } else {
-                shape.fill(cardBackColor)
+                shape.fill(LinearGradient(colors: [cardBackColor, .white],
+                                          startPoint: .top,
+                                          endPoint: .bottom)
+                )
                 shape.strokeBorder(.blue, lineWidth: 5)
             }
         }

@@ -51,14 +51,12 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
             } else {
                 if cards[chosenIndex].previouslySeen == true {
                     score -= 1
-                } else {
-                    cards[chosenIndex].previouslySeen = true
                 }
                 if cards[potentialMatchIndex].previouslySeen == true {
                     score -= 1
-                } else {
-                    cards[potentialMatchIndex].previouslySeen = true
                 }
+                cards[potentialMatchIndex].previouslySeen = true
+                cards[chosenIndex].previouslySeen = true
             }
             indexOfOneAndOnlyFaceUpCard = nil
         } else {

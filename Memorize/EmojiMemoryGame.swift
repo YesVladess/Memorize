@@ -15,20 +15,20 @@ class EmojiMemoryGame: ObservableObject {
     struct Theme {
         var name: String
         var emojis: [String]
-        var themeColor: Color
+        var color: Color
     }
 
     private let avaliableThemes = [vehihles, animals, faces]
 
     private static let vehihles = Theme(name: "Vehihles",
                                 emojis: ["🚗", "🚕", "🚙", "🚎", "🏎", "🚑", "🚌", "🚓",  "🚒", "🚐", "🛻", "🚚", "🚛" , "🚜"],
-                                themeColor: .black)
+                                color: .black)
     private static let animals = Theme(name: "Animals",
                                        emojis: ["🐶", "🐱", "🐭", "🐰", "🦊", "🐼", "🐻", "🐻‍❄️",  "🐨", "🐸", "🦉", "🦋"],
-                                       themeColor: .green)
+                                       color: .green)
     private static let faces = Theme(name: "Faces",
                                      emojis: ["😋", "🥲", "😟", "😕", "🤩", "🙁", "😢", "🥺",  "😤", "🤯"],
-                                     themeColor: .orange)
+                                     color: .orange)
 
     // MARK: Other variables
 
