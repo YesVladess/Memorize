@@ -10,43 +10,57 @@ import SwiftUI
 // This is ViewModel
 class EmojiMemoryGame: ObservableObject {
 
-    enum Theme {
-        case vehihles
-        case animals
-        case faces
+    // MARK: Themes
+
+    struct Theme {
+        var name: String
+        var emojis: [String]
+        var themeColor: Color
     }
 
-    static let emojisVehihles = ["🚗", "🚕", "🚙", "🚎", "🏎", "🚑", "🚌", "🚓",  "🚒", "🚐", "🛻", "🚚", "🚛" , "🚜"]
-    static let emojisAnimals = ["🐶", "🐱", "🐭", "🐰", "🦊", "🐼", "🐻", "🐻‍❄️",  "🐨", "🐸", "🦉", "🦋"]
-    static let emojisFaces = ["😋", "🥲", "😟", "😕", "🤩", "🙁", "😢", "🥺",  "😤", "🤯"]
+    private let avaliableThemes = [vehihles, animals, faces]
 
-    @Published private var model = MemoryGame<String> { pairIndex in
-        EmojiMemoryGame.emojisVehihles[pairIndex]
-    }
-    
+    private static let vehihles = Theme(name: "Vehihles",
+                                emojis: ["🚗", "🚕", "🚙", "🚎", "🏎", "🚑", "🚌", "🚓",  "🚒", "🚐", "🛻", "🚚", "🚛" , "🚜"],
+                                themeColor: .black)
+    private static let animals = Theme(name: "Animals",
+                                       emojis: ["🐶", "🐱", "🐭", "🐰", "🦊", "🐼", "🐻", "🐻‍❄️",  "🐨", "🐸", "🦉", "🦋"],
+                                       themeColor: .green)
+    private static let faces = Theme(name: "Faces",
+                                     emojis: ["😋", "🥲", "😟", "😕", "🤩", "🙁", "😢", "🥺",  "😤", "🤯"],
+                                     themeColor: .orange)
+
+    // MARK: Other variables
+
+    @Published private var model: MemoryGame<String>
+    @Published var currentTheme: Theme
     var cards: [MemoryGame<String>.Card] {
         model.cards
+    }
+
+    init() {
+        let randomTheme = avaliableThemes.randomElement()!
+        self.model = MemoryGame<String>(avaliableCardContentPieces: randomTheme.emojis.count) { pairIndex in
+            randomTheme.emojis[pairIndex]
+        }
+        self.currentTheme = randomTheme
     }
 
     // MARK: - Intent
 
     func choose(_ card: MemoryGame<String>.Card) {
+        // Don't need if we have ObservableObject?
         //objectWillChange.send()
         model.choose(card)
     }
 
-    func restartGame(theme: Theme) {
-        var cards: [String] = []
-        switch theme {
-        case .vehihles:
-            cards = EmojiMemoryGame.emojisVehihles
-        case .animals:
-            cards = EmojiMemoryGame.emojisAnimals
-        case .faces:
-            cards = EmojiMemoryGame.emojisFaces
-        }
-        model = MemoryGame<String> { pairIndex in
-            cards[pairIndex]
+    func newGame() {
+        let randomTheme = avaliableThemes.randomElement()!
+        currentTheme = randomTheme
+        let cardsContent = currentTheme.emojis.shuffled()
+        model = MemoryGame<String>(avaliableCardContentPieces: cardsContent.count) { pairIndex in
+            cardsContent[pairIndex]
         }
     }
+    
 }

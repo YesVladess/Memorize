@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     @ObservedObject var viewModel: EmojiMemoryGame
 
     var body: some View {
@@ -20,54 +21,30 @@ struct ContentView: View {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))])
                 {
                     ForEach(viewModel.cards) { card in
-                        CardView(card: card).aspectRatio(2/3, contentMode: .fit)
-                            .onTapGesture {
-                                viewModel.choose(card)
-                            }
+                        CardView(card: card,
+                                 cardBackColor: viewModel.currentTheme.themeColor)
+                        .aspectRatio(2/3, contentMode: .fit)
+                        .onTapGesture {
+                            viewModel.choose(card)
+                        }
                     }
                 }
             }
             Spacer()
             HStack( alignment: .firstTextBaseline, spacing: 25) {
-                vehiclesThemeButton.padding(.horizontal)
-                facesThemeButton.padding(.horizontal)
-                animalsThemeButton.padding(.horizontal)
+                newGameButton.padding(.horizontal)
             }
         }
         .padding(.horizontal)
     }
 
-    var vehiclesThemeButton: some View {
+    var newGameButton: some View {
         Button {
-            viewModel.restartGame(theme: .vehihles)
+            viewModel.newGame()
         } label: {
             VStack {
-                Image(systemName: "car").font(.largeTitle)
-                Text("Vehicles")
-            }
-        }
-    }
-
-    var facesThemeButton: some View {
-        Button {
-            viewModel.restartGame(theme: .faces)
-        } label: {
-            VStack {
-                Image(systemName: "face.smiling")
-                    .font(.largeTitle)
-                Text("Faces")
-            }
-        }
-    }
-
-    var animalsThemeButton: some View {
-        Button {
-            viewModel.restartGame(theme: .animals)
-        } label: {
-            VStack() {
-                Image(systemName: "hare")
-                    .font(.largeTitle)
-                Text("Animals")
+                Image(systemName: "plus.rectangle.fill").font(.largeTitle)
+                Text(viewModel.currentTheme.name)
             }
         }
     }
@@ -77,6 +54,7 @@ struct ContentView: View {
 struct CardView: View {
 
     let card: MemoryGame<String>.Card
+    let cardBackColor: Color
 
     var body: some View {
         ZStack {
@@ -88,21 +66,19 @@ struct CardView: View {
             } else if card.isMatched {
                 shape.opacity(0)
             } else {
-                shape.fill(.brown)
+                shape.fill(cardBackColor)
                 shape.strokeBorder(.blue, lineWidth: 5)
             }
         }
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         let game = EmojiMemoryGame()
         ContentView(viewModel: game)
-            .previewDevice("iPhone 13")
-            .preferredColorScheme(.dark)
-        //        ContentView()
-        //            .previewDevice("iPhone 13")
-        //            .preferredColorScheme(.light)
+        .previewDevice("iPhone 13")
+        .preferredColorScheme(.dark)
     }
 }

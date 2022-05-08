@@ -11,7 +11,6 @@ import Foundation
 struct MemoryGame<CardContent> where CardContent: Equatable {
 
     private(set) var cards: [Card]
-
     private var indexOfOneAndOnlyFaceUpCard: Int?
 
     struct Card: Identifiable {
@@ -21,9 +20,12 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         var id: Int
     }
 
-    init(createCardContent: (Int) -> CardContent) {
+    init(avaliableCardContentPieces: Int, createCardContent: (Int) -> CardContent) {
         cards = [Card]()
-        let randomNumberOfPairs = Int.random(in: 4...8)
+        var randomNumberOfPairs = Int.random(in: 2...15)
+        if randomNumberOfPairs > avaliableCardContentPieces {
+            randomNumberOfPairs = avaliableCardContentPieces
+        }
         // add randomNumberOfPairs x 2 cards to card array
         for pairIndex in 0..<randomNumberOfPairs {
             let content = createCardContent(pairIndex)
