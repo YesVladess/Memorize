@@ -13,23 +13,29 @@ struct AspectVGrid<Item, ItemView>: View where ItemView: View, Item: Identifiabl
     var aspectRatio: CGFloat
     var content: (Item) -> ItemView
 
+    init(items: [Item], aspectRatio: CGFloat, @ViewBuilder content: @escaping (Item) -> ItemView) {
+        self.items = items
+        self.aspectRatio = aspectRatio
+        self.content = content
+    }
+
     var body: some View {
         GeometryReader { geometry  in
             VStack {
                 let width: CGFloat = widthThatFits(itemCount: items.count, in: geometry.size, itemAspectRatio: aspectRatio)
-                LazyVGrid(columns: [adaptiveGridItem(width: width)], spacing: 0) {
+                LazyVGrid(columns: [adaptiveGridItem(width: width)], spacing: DrawingConstants().lazyVGridSpacing) {
                     ForEach(items) { item in
                         content(item).aspectRatio(aspectRatio, contentMode: .fit)
                     }
                 }
             }
-            Spacer(minLength: 0)
+            Spacer(minLength: DrawingConstants().spacerMinLength)
         }
     }
 
     private func adaptiveGridItem(width: CGFloat) -> GridItem {
         var gridItem = GridItem(.adaptive(minimum: width))
-        gridItem.spacing = 0
+        gridItem.spacing = DrawingConstants().gridItemSpacing
         return gridItem
     }
 
@@ -49,6 +55,12 @@ struct AspectVGrid<Item, ItemView>: View where ItemView: View, Item: Identifiabl
             columnCount = itemCount
         }
         return floor(size.width / CGFloat(columnCount))
+    }
+
+    private struct DrawingConstants {
+        let spacerMinLength: CGFloat = 0
+        let gridItemSpacing: CGFloat = 0
+        let lazyVGridSpacing: CGFloat = 0
     }
 
 }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5A7A81DD2828360C00DF0953 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A81DC2828360C00DF0953 /* CardView.swift */; };
 		5A7A81DF282AFA5B00DF0953 /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A81DE282AFA5B00DF0953 /* AspectVGrid.swift */; };
+		5A7A81E1282B1ABE00DF0953 /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A81E0282B1ABE00DF0953 /* Pie.swift */; };
 		5AE3CECB276DF62A0007A7EF /* MemorizeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE3CECA276DF62A0007A7EF /* MemorizeApp.swift */; };
 		5AE3CECD276DF62A0007A7EF /* EmojiMemoryGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE3CECC276DF62A0007A7EF /* EmojiMemoryGameView.swift */; };
 		5AE3CECF276DF62C0007A7EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AE3CECE276DF62C0007A7EF /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		5A7A81DC2828360C00DF0953 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		5A7A81DE282AFA5B00DF0953 /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
+		5A7A81E0282B1ABE00DF0953 /* Pie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pie.swift; sourceTree = "<group>"; };
 		5AE3CEC7276DF62A0007A7EF /* Memorize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memorize.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AE3CECA276DF62A0007A7EF /* MemorizeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemorizeApp.swift; sourceTree = "<group>"; };
 		5AE3CECC276DF62A0007A7EF /* EmojiMemoryGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiMemoryGameView.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				5AE3CECA276DF62A0007A7EF /* MemorizeApp.swift */,
+				5A7A81E0282B1ABE00DF0953 /* Pie.swift */,
 				5A7A81DE282AFA5B00DF0953 /* AspectVGrid.swift */,
 				5AE3CECC276DF62A0007A7EF /* EmojiMemoryGameView.swift */,
 				5A7A81DC2828360C00DF0953 /* CardView.swift */,
@@ -153,6 +156,7 @@
 				5AE3CECD276DF62A0007A7EF /* EmojiMemoryGameView.swift in Sources */,
 				5A7A81DF282AFA5B00DF0953 /* AspectVGrid.swift in Sources */,
 				5AE3CECB276DF62A0007A7EF /* MemorizeApp.swift in Sources */,
+				5A7A81E1282B1ABE00DF0953 /* Pie.swift in Sources */,
 				5AFBFFCB2778B9D500C51A3D /* EmojiMemoryGame.swift in Sources */,
 				5A7A81DD2828360C00DF0953 /* CardView.swift in Sources */,
 			);

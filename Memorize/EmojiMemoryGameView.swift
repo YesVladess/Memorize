@@ -13,24 +13,35 @@ struct EmojiMemoryGameView: View {
 
     var body: some View {
         VStack {
-            Text("Memorize!")
-                .padding(.bottom)
-                .font(.largeTitle)
+            VStack {
+                Text("Memorize!")
+                    .padding(.bottom)
+                    .font(.largeTitle)
+                Spacer()
+                AspectVGrid(items: game.cards, aspectRatio: DrawingConstants.cardsAspectRatio) { card in
+                    cardView(for: card)
+                }
+            }
             Spacer()
-            AspectVGrid(items: game.cards, aspectRatio: 2/3, content: { card in
-                CardView(card, withBackColor: game.currentTheme.color)
-                    .onTapGesture {
-                        game.choose(card)
-                    }
-                    .padding(4)
-            })
-            Spacer()
-            HStack( alignment: .firstTextBaseline, spacing: 25) {
+            HStack(alignment: .firstTextBaseline, spacing: DrawingConstants.bottomElementsSpacing) {
                 newGameButton.padding(.horizontal)
                 gameInfoView.padding(.horizontal)
             }
+            .padding(.horizontal)
         }
-        .padding(.horizontal)
+    }
+
+    @ViewBuilder
+    private func cardView(for card: EmojiMemoryGame.Card) -> some View {
+        if card.isMatched && !card.isFaceUp {
+            Rectangle().opacity(0)
+        } else {
+            CardView(card, withBackColor: game.currentTheme.color)
+                .onTapGesture {
+                    game.choose(card)
+                }
+                .padding(DrawingConstants.cardPadding)
+        }
     }
 
     private var newGameButton: some View {
@@ -51,13 +62,22 @@ struct EmojiMemoryGameView: View {
         }
     }
 
+    private struct DrawingConstants {
+        static let cardsAspectRatio: CGFloat = 2/3
+        static let cardPadding: CGFloat = 4
+        static let bottomElementsSpacing: CGFloat = 25
+    }
+
 }
 
 struct ContentView_Previews: PreviewProvider {
+
     static var previews: some View {
         let game = EmojiMemoryGame()
-        EmojiMemoryGameView(game: game)
+        game.choose(game.cards.first!)
+        return EmojiMemoryGameView(game: game)
             .previewDevice("iPhone 13")
             .preferredColorScheme(.dark)
     }
+
 }
