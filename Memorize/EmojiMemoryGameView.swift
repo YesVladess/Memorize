@@ -17,18 +17,13 @@ struct EmojiMemoryGameView: View {
                 .padding(.bottom)
                 .font(.largeTitle)
             Spacer()
-            ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))])
-                {
-                    ForEach(game.cards) { card in
-                        CardView(card, withBackColor: game.currentTheme.color)
-                            .aspectRatio(2/3, contentMode: .fit)
-                            .onTapGesture {
-                                game.choose(card)
-                            }
+            AspectVGrid(items: game.cards, aspectRatio: 2/3, content: { card in
+                CardView(card, withBackColor: game.currentTheme.color)
+                    .onTapGesture {
+                        game.choose(card)
                     }
-                }
-            }
+                    .padding(4)
+            })
             Spacer()
             HStack( alignment: .firstTextBaseline, spacing: 25) {
                 newGameButton.padding(.horizontal)

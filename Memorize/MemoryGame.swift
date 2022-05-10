@@ -27,10 +27,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
 
     init(avaliableCardContentPieces: Int, createCardContent: (Int) -> CardContent) {
         cards = []
-        var randomNumberOfPairs = Int.random(in: 8...15)
-        if randomNumberOfPairs > avaliableCardContentPieces {
-            randomNumberOfPairs = avaliableCardContentPieces
-        }
+        let randomNumberOfPairs = Int.random(in: 1...avaliableCardContentPieces)
         // add randomNumberOfPairs x 2 cards to card array
         for pairIndex in 0..<randomNumberOfPairs {
             let content = createCardContent(pairIndex)

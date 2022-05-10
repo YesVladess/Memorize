@@ -23,13 +23,13 @@ class EmojiMemoryGame: ObservableObject {
     private let avaliableThemes = [vehihles, animals, faces]
 
     private static let vehihles = Theme(name: "Vehihles",
-                                emojis: ["🚗", "🚕", "🚙", "🚎", "🏎", "🚑", "🚌", "🚓",  "🚒", "🚐", "🛻", "🚚", "🚛" , "🚜"],
-                                color: .black)
+                                        emojis: ["🚗", "🚕", "🚙", "🚎", "🏎", "🚑", "🚌", "🚓",  "🚒", "🚐", "🛻", "🚚", "🚛" , "🚜"],
+                                        color: .blue)
     private static let animals = Theme(name: "Animals",
                                        emojis: ["🐶", "🐱", "🐭", "🐰", "🦊", "🐼", "🐻", "🐻‍❄️",  "🐨", "🐸", "🦉", "🦋"],
                                        color: .green)
     private static let faces = Theme(name: "Faces",
-                                     emojis: ["😋", "🥲", "😟", "😕", "🤩", "🙁", "😢", "🥺",  "😤", "🤯"],
+                                     emojis: ["😋", "🥲", "😟", "😕", "🤩", "🙁", "😢", "🥺",  "😤", "🤯", "🤪", "🥶", "🤢", "🤠", "💩", "😶‍🌫️", "🤡", "👹", "👽", "🤖", "😼", "☠️"],
                                      color: .orange)
 
     // MARK: Other variables
